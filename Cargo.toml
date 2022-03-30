@@ -1,0 +1,23 @@
+[package]
+authors = ["us"]
+description = "Build apps with CUI!"
+edition = "2018"
+license = "MIT"
+name = "cui-tools"
+repository = "https://github.com/thisminute/cui-tools"
+version = "0.0.1"
+
+# build = "mkdir -p ./target/html && wasm-pack build --target web && cp ./target/html/index.html index.html",
+# test = "wasm-pack test --headless --chrome --firefox",
+# # watch:cui": "onchange -k ./cui ../src -- touch ./src/lib.rs",
+# # watch:rust": "onchange -k ./src -- npm run build",
+# # debug": "run-s -c debug:build format build debug:swap_out debug:format_macro",
+# # debug:build": "run-s -sc build:force debug:swap_in",
+# # debug:swap_in": "mv ./src/lib.rs ./target/cui_macro_input.rs && cp ./target/cui_macro_output.rs ./src/lib.rs",
+# # debug:swap_out": "cp ./target/cui_macro_input.rs ./src/lib.rs",
+# # debug:format_macro": "cp ./target/cui_macro_output.rs ./target/cui_macro_output_formatted.rs && rustfmt ./target/cui_macro_output_formatted.rs"
+
+[dependencies]
+actix-files = "^0.6.0"
+actix-web = "^4.0.1"
+cui-app = {path = "app"}
