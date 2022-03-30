@@ -1,5 +1,1 @@
-pkg/
-target/
-
-# index.html is generated, don't save it!
-/index.html
+/target/
