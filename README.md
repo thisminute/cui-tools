@@ -1,13 +1,13 @@
 ## About
 
-This repository provides a tool to compile [CUI](https://github.com/thisminute/cascading-ui) code and serve the generated HTML, JavaScript, and WebAssembly files locally for development purposes. This is the best place to start if you want to learn about CUI! If you want to create a deployable build target from CUI code and don't need other tools, [the cui-app-template directory contains a submodule](https://github.com/thisminute/cui-app-template) that takes care of that task.
+This repository provides developer tools for working with [CUI](https://github.com/thisminute/cascading-ui). This is the best place to start if you want to learn about CUI!
 
-## Example
+## CUI Code Example
 
-This sample of CUI code creates a single element which contains the text "hello world" in red, and the text turns blue when the element is clicked:
+This sample creates a single element which contains the text "hello world" in red, and the text turns blue when the element is clicked:
 
 ```cui
-// all elements of `my-class` have red text
+// declare that all elements of `my-class` have red text
 .my-class {
    color: "red";
 }
@@ -16,7 +16,7 @@ This sample of CUI code creates a single element which contains the text "hello 
 my-class {
    text: "hello world";
 
-   // if you click the element, it will turn blue
+   // declare that clicking the element will turn the text blue
    ?click {
       color: "blue";
    }
@@ -25,16 +25,15 @@ my-class {
 
 ## Install
 
-To install, you will need:
+To get started, you will need:
 
 1. [rustc/cargo](https://www.rust-lang.org/tools/install)
-1. [node/npm](https://nodejs.org/en/download/)
 1. [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
 
 Then:
 
 ```
-git clone https://github.com/thisminute/cui-app-template.git
+git clone https://github.com/thisminute/cui-tools.git
 ```
 
 For windows users, run in the root directory:
@@ -46,18 +45,24 @@ rustup default stable-x86_64-pc-windows-gnu
 
 Then:
 
-```
-cd cui-app-template/www # npm stuff is in the www directory
-wasm-pack build
-npm install
-npm start # opens a new browser tab in watch mode
+```bash
+cd app
+wasm-pack build --target web
+cd ..
+cargo run
 ```
 
-After installation, you can modify the source code in `src/lib.rs`, and the page should automatically refresh. If the server stops, `npm start` while in the `www` directory will rebuild and serve the page.
+Or use run.sh to save some typing:
+
+```bash
+./run.sh
+```
+
+After installation, you can modify the source code in `app/src/lib.rs` and re-build to see your changes.
 
 ## Cascading UI
 
-Cascading UI is named for the Cascading in Cascading Style Sheets, which it borrows its basic syntax from. CUI has classes like CSS:
+Cascading UI is named for the Cascading in Cascading Style Sheets (CSS), which it borrows its basic syntax from. CUI has classes like CSS:
 
 ```cui
 .my-class {
@@ -93,7 +98,6 @@ Like Sass or other extensions of CSS, CUI supports nesting blocks inside of each
 ```cui
 // class
 // apply the rules to all descendants of class "a"
-// NOTE: descendants include both current and future matching elements
 .a {
    // rules
 }
@@ -113,9 +117,11 @@ a {
 
 ### Nesting patterns
 
+Class blocks apply rules to descendant elements that match the class name.
+
 ```cui
 // class in class
-// in all descendants of class "a", apply the rules to all of their descendants of class "b"
+// in all descendants of class "a", apply the rules to all descendants of class "b"
 .a {
    .b {
       // rules
@@ -130,9 +136,22 @@ a {
    }
 }
 
+// class in listener
+// when the parent is clicked, apply the rules to its descendants of class "a"
+?click {
+   .a {
+      // rules
+   }
+}
+```
+
+Element blocks define where elements are placed.
+
+Note: There are restrictions on placing elements that are outlined in the Structures section.
+
+```cui
 // element in element
-// create an element of class "a", then create an element of class "b" inside it with the rules applied
-// NOTE: can conflict with elements in other blocks (see Structures section)
+// create an element of class "a" that contains an element of class "b" inside it with the rules applied
 a {
    b {
       // rules
@@ -141,13 +160,24 @@ a {
 
 // element in class
 // in all descendants of class "a", create an element of class "b" with the rules applied
-// NOTE: can conflict with elements in other blocks (see Structures section)
 .a {
    b {
       // rules
    }
 }
 
+// element in listener
+// when the parent is clicked, replace its structure with an element of class "a"  with the rules applied
+?click {
+   a {
+      // rules
+   }
+}
+```
+
+Listeners:
+
+```cui
 // listener in class
 // apply the rules to any descendant of class "a" when it is clicked
 .a {
@@ -156,26 +186,11 @@ a {
    }
 }
 
-// class in listener
-// when the parent is clicked, apply the rules to its descendants of class "a"
-?click {
-   .a {
-      // rules
-   }
-}
 
 // listener in element
 // create an element of class "a" and apply the rules to it when it is clicked
 a {
    ?click {
-      // rules
-   }
-}
-
-// element in listener
-// when the parent is clicked, replace its structure (see Structures section) with an element of class "a"  with the rules applied
-?click {
-   a {
       // rules
    }
 }
@@ -224,9 +239,7 @@ To use a listener to modify a structure instead of replacing it, you will need v
 
 ### Variables
 
-To be implemented...
-
-Without variables, we can turn any element of class "a" green when it is clicked:
+Even without variables, we can turn any element of class "a" green when it is clicked:
 
 ```cui
 .a {
@@ -240,7 +253,7 @@ a {}
 a {}
 ```
 
-But to make all elements of class "a" green when any of them are clicked, we need variables:
+But to make ALL elements of class "a" turn green when any one of them is clicked, we need variables:
 
 ```cui
 $color: "red";
