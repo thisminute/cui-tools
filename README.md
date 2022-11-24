@@ -16,7 +16,7 @@ This sample creates a single element which contains the text "hello world" in re
 my-class {
    text: "hello world";
 
-   // declare that clicking the element will turn the text blue
+   // declare that when this element is clicked, its text will become blue
    ?click {
       color: "blue";
    }
@@ -62,12 +62,12 @@ After installation, you can modify the source code in `app/src/lib.rs` and re-bu
 
 ## Cascading UI
 
-Cascading UI is named for the Cascading in Cascading Style Sheets (CSS), which it borrows its basic syntax from. CUI has classes like CSS:
+Cascading UI is named for the "Cascading" in "Cascading Style Sheets" (CSS), which it copies its basic syntax from. CUI has classes like CSS:
 
 ```cui
 .my-class {
    color: "red";
-   text: "hello world"; // some different properties from css
+   text: "hello world"; // css does not have a "text" property!
 }
 ```
 
