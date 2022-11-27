@@ -8,12 +8,12 @@ This sample creates a single element which contains the text "hello world" in re
 
 ```cui
 // declare that all elements of `my-class` have red text
-.my-class {
+.myClass {
    color: "red";
 }
 
 // create an element of my-class that says "hello world"
-my-class {
+myClass {
    text: "hello world";
 
    // declare that when this element is clicked, its text will become blue
