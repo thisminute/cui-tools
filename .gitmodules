@@ -1,4 +1,4 @@
 [submodule "app"]
 	path = app
 	url = git@github.com:thisminute/cui-app-template.git
-	branch = debug
+	branch = main

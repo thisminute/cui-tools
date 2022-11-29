@@ -7,13 +7,13 @@ This repository provides developer tools for working with [CUI](https://github.c
 This sample creates a single element which contains the text "hello world" in red, and the text turns blue when the element is clicked:
 
 ```cui
-// declare that all elements of `my-class` have red text
-.myClass {
+// declare that all elements of `my_class` have red text
+.my_class {
    color: "red";
 }
 
-// create an element of my-class that says "hello world"
-myClass {
+// create an element of my_class that says "hello world"
+my_class {
    text: "hello world";
 
    // declare that when this element is clicked, its text will become blue
@@ -65,21 +65,21 @@ After installation, you can modify the source code in `app/src/lib.rs` and re-bu
 Cascading UI is named for the "Cascading" in "Cascading Style Sheets" (CSS), which it copies its basic syntax from. CUI has classes like CSS:
 
 ```cui
-.my-class {
+.my_class {
    color: "red";
    text: "hello world"; // css does not have a "text" property!
 }
 ```
 
-This block says that all elements of class `my-class` should say "hello world" in red text. CUI borrows the syntax of CSS but also extends it to specifying the content of a page or creating elements (compiling to HTML), and adding behavior to a page (compiling to Webassembly, taking the traditional role of Javascript).
+This block says that all elements of class `my_class` should say "hello world" in red text. CUI borrows the syntax of CSS but also extends it to specifying the content of a page or creating elements (compiling to HTML), and adding behavior to a page (compiling to Webassembly, taking the traditional role of Javascript).
 
 ```cui
-my-class {
+my_class {
    color: "green";
 }
 ```
 
-This block, similar to the first but without a `.` at the beginning, would create an element, and then modify the properties of that element directly. If both blocks set the same property, the property in the _element block_ would override the property in the _class block_. In this case, if this was used with the first code block, there will be just one element, and it will say "hello world" in green text. Writing `my-class {}` with no properties is similar to writing `<div class="my-class"></div>` in html, and setting the color inside of the block is similar to overwriting the class property with an inline style (or exactly that, in the case of css properties).
+This block, similar to the first but without a `.` at the beginning, would create an element, and then modify the properties of that element directly. If both blocks set the same property, the property in the _element block_ would override the property in the _class block_. In this case, if this was used with the first code block, there will be just one element, and it will say "hello world" in green text. Writing `my_class {}` with no properties is similar to writing `<div class="my_class"></div>` in html, and setting the color inside of the block is similar to overwriting the class property with an inline style (or exactly that, in the case of css properties).
 
 ```cui
 ?click {
