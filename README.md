@@ -25,7 +25,7 @@ my_class {
 
 ## Install
 
-To get started, you will need:
+To get started, you will need to install rustc and wasm-pack from the following links:
 
 1. [rustc/cargo](https://www.rust-lang.org/tools/install)
 1. [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
@@ -33,7 +33,7 @@ To get started, you will need:
 Then:
 
 ```
-git clone https://github.com/thisminute/cui-tools.git
+git clone --recurse-submodules https://github.com/thisminute/cui-tools.git
 ```
 
 For windows users, run in the root directory:
